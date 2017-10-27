@@ -16,7 +16,7 @@ $(function(){
 
     _deleBtn.on('click',function(){
     $.ajax({
-            url: "http://localhost:8088/v1/dele",
+            url: "http://localhost:8088/api/v1/dele",
             type:"POST",
             data:{
                 id:"<%=_id%>"

@@ -2,10 +2,10 @@
  * @Author: Guoxing.han
  * @Date: 2017-10-16 16:47:07
  * @version 0.0.1
- * conect database
+ * connect database
   */
 const mongoose = require('mongoose');
-const config = require('./../config/config')
+const config = require('./../config/config');
 mongoose.connect(config.mongoose, {useMongoClient: true});
 const db = mongoose.connection;
 db.on('connected', function () {

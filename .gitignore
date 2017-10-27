@@ -11,7 +11,7 @@ npm-debug.log
 .log
 
 #IDE
-.idea
+.idea/
 .vscode
 
 #www

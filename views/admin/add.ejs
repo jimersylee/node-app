@@ -32,7 +32,7 @@ $(function(){
     var $btn = $(this).button('loading')
     e.preventDefault();
     $.ajax({
-        url: "/v1/add",
+        url: "/api/v1/add",
         type: "POST",
         data:{
           title:$('#J_title').val(),
