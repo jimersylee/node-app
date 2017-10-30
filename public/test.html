@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Jimersy Lee的博客</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/jquery.svg3dtagcloud.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div id="nav" class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Jimersy Lee's Blog</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">首页</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">工具<strong
+                                    class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">json格式化</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">时间戳</a>
+                                </li>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control"/>
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                            搜索
+                        </button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li>
+                            <a href="#">Link</a>
+                        </li>-->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理<strong
+                                    class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">登录</a>
+                                </li>
+                                <li>
+                                    <a href="#">发布</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9">
+
+                            <!--left begin-->
+
+                            <div id="articleEdit">
+                                <header>
+                                    <h1>新增文章</h1>
+                                </header>
+                                <form class="form-horizontal" style="padding-top:50px;">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">标题：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="J_title" placeholder="标题"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">内容：</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" rows="3" id="J_info" title=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" data-loading-text="Loading..." class="btn btn-default"
+                                                    autocomplete="off">
+                                                提 交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <script>
+                                $(function () {
+                                    var _from = $('.form-horizontal');
+                                    var _id = _from.data('id');
+                                    var _btn = _from.find('button');
+                                    _btn.on('click', function (e) {
+                                        var $btn = $(this).button('loading')
+                                        e.preventDefault();
+                                        $.ajax({
+                                            url: "/api/v1/articles/add",
+                                            type: "POST",
+                                            data: {
+                                                title: $('#J_title').val(),
+                                                info: $('#J_info').val()
+                                            }
+                                        }).done(function (data) {
+                                            $btn.button('reset');
+                                            console.log(data)
+                                            window.location.href = 'http://localhost:8088/articles/' + data.data._id
+
+                                        }).fail(function (jqXHR, textStatus) {
+                                            $btn.button('reset')
+                                            alert("Request failed: " + textStatus);
+                                        });
+                                        ;
+                                    })
+                                })
+                            </script>
+                            <!--left end-->
+
+                            <!--right begin-->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <img alt="Bootstrap Image Preview" src="http://lorempixel.com/280/140/"
+                             class="img-rounded text-left"/>
+                        <hr/>
+                        <dl class="">
+                            <dt>
+                                公司
+                            </dt>
+                            <dd>
+                                杭州惠融金融信息服务有限公司
+                            </dd>
+                            <dt>
+                                产品
+                            </dt>
+                            <dd>
+                                多米金融
+                            </dd>
+                            <dt>
+                                技术栈
+                            </dt>
+                            <dd>
+                                Java,PHP,后端
+                            </dd>
+                        </dl>
+                        <hr>
+                        <h4 class="text-left">
+                            近期热门
+                        </h4>
+                        <ul>
+                            <li>
+                                论语言之争
+                            </li>
+                            <li>
+                                论语言之争
+                            </li>
+                            <li>
+                                论语言之争
+                            </li>
+                            <li>
+                                论语言之争
+                            </li>
+                            <li>
+                                论语言之争
+                            </li>
+                            <li>
+                                论语言之争
+                            </li>
+                        </ul>
+                        <hr>
+                        <h4 class="text-left">
+                            文章分类
+                        </h4>
+                        <ul>
+                            <li>
+                                Java
+                            </li>
+                            <li>
+                                PHP
+                            </li>
+                            <li>
+                                Linux
+                            </li>
+                            <li>
+                                OPS
+                            </li>
+                            <li>
+                                python
+                            </li>
+                            <li>
+                                Go
+                            </li>
+                        </ul>
+                        <hr>
+                        <h4 class="text-left">
+                            标签云
+                        </h4>
+                        <div class="zzsc-container">
+                            <div id='tag-cloud'></div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            let entries = [
+                {label: 'Back to top', url: '#', target: '_top'},
+                {label: 'Bootstrap', url: '#', target: '_top'},
+                {label: 'Carousel', url: '#', target: '_top'},
+                {label: 'Countdown', url: '#', target: '_top'},
+                {label: 'Dropdown Menu', url: '#', target: '_top'},
+                {label: 'CodePen', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'three.js', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Form Validation', url: '#', target: '_top'},
+                {label: 'JS Compress', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'TinyPNG', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Can I Use', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'URL shortener', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Grid Layout', url: '#', target: '_top'},
+                {label: 'Twitter', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'deviantART', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Gulp', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Browsersync', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'GitHub', url: 'https://github.com/', target: '_top'},
+                {label: 'Shadertoy', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Tree View', url: '#', target: '_top'},
+                {label: 'jsPerf', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Foundation', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'CreateJS', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Velocity.js', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'TweenLite', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'jQuery', url: 'http://sc.chinaz.com/', target: '_top'},
+                {label: 'Notification', url: '#', target: '_top'},
+                {label: 'Parallax', url: '#', target: '_top'}
+            ];
+
+            let settings = {
+                entries: entries,
+                width: 320,
+                height: 240,
+                radius: '65%',
+                radiusMin: 75,
+                bgDraw: true,
+                bgColor: '#fff',
+                opacityOver: 1.00,
+                opacityOut: 0.05,
+                opacitySpeed: 6,
+                fov: 800,
+                speed: 0.5,
+                fontFamily: 'Oswald, Arial, sans-serif',
+                fontSize: '15',
+                fontColor: '#494A5F',
+                fontWeight: 'normal',//bold
+                fontStyle: 'normal',//italic
+                fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
+                fontToUpperCase: true
+
+            };
+
+            //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
+            $('#tag-cloud').svg3DTagCloud(settings);
+
+        });
+
+    </script>
+
+    <!--right end-->
+
+    <!--foot begin-->
+    <div id="foot" class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <address>
+                        <strong>浙江,杭州</strong>
+                        <br>
+                        QQ:30-500-8389
+                        <br>
+                        Email:jimersylee@gmail.com
+                    </address>
+                </div>
+                <div class="col-md-4">
+                    © 2018 jimersylee.com
+                    <br>
+                    浙ICP:10000000
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline">
+                        <li>
+                            Github
+                        </li>
+                        <li>
+                            Coding.net
+                        </li>
+                        <li>
+                            简历
+                        </li>
+                        <li>
+                            多米金融
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+</body>
+</html>
+
+<!--foot end-->

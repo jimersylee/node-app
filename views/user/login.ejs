@@ -1,0 +1,63 @@
+<% include ../compents/head.ejs %>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h2 class="text-center">用户登录</h2>
+        <form class="form-horizontal" style="">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="用户名" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="password" placeholder="密码" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" data-loading-text="Loading..." class="btn btn-default">登录</button>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            $(function () {
+                let _from = $('.form-horizontal');
+                const _btn = _from.find('button');
+                _btn.on('click', function (e) {
+                    const $btn = $(this).button('loading');
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/user/doLogin",
+                        type: "POST",
+                        data: {
+                            name: $('#name').val(),
+                            password: $('#password').val(),
+                        }
+                    }).done(function (data) {
+                        $btn.button('reset');
+                        console.log(data)
+                        alert(data);
+                        if (data === "登录成功") {
+                            window.location.href = '/<%= locals.refer %>';
+                        }
+
+
+                    }).fail(function (jqXHR, textStatus) {
+                        $btn.button('reset')
+                        alert("Request failed: " + textStatus);
+                    });
+                    ;
+                })
+            })
+        </script>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<% include ../compents/right.ejs %>
+<% include ../compents/foot.ejs %>

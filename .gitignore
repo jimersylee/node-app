@@ -3,10 +3,9 @@
 Thumbs.db
 
 #page
-index.html
 
 #node
-/node_modules
+node_modules/
 npm-debug.log
 .log
 
@@ -15,3 +14,5 @@ npm-debug.log
 .vscode
 
 #www
+将删除 package-lock.json
+将删除 public/index_.html

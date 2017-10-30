@@ -20,4 +20,5 @@ db.on('disconnected', function () {
 
 
 require('./articles');
+require('./users');
 

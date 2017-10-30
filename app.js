@@ -4,6 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session=require('express-session');
 
 require('./models/db')
 
@@ -19,9 +20,9 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+app.use(cookieParser("LX"));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({"secret":"LX"}));
 require('./routes/index')(app);
 
 // catch 404 and forward to error handler

@@ -5,12 +5,13 @@
   */
 const express = require('express');
 const router = express.Router();
+const admin=require("../app/controllers/admin");
+const auth=require("./auth");
+//admin后台的路由
+router.get("/",function (req, res) {
+    auth.checkLoginAndRedirect(req,res,"admin/");
+    admin.index(req,res);
+});
 
-router.get('/login', function (req, res, next) {
-  res.render('admin/index', {title: '1'});
-});
-router.get('/2', function (req, res, next) {
-  res.render('admin/index', {title: '2'});
-});
 
 module.exports = router;

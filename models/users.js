@@ -1,7 +1,7 @@
 
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
-const user=new Schema({
+const userSchema=new Schema({
     name:{
         type:"String"
     },
@@ -12,4 +12,4 @@ const user=new Schema({
     gmt_updated:Date
 });
 
-module.exports=mongoose.model("user",user);
+module.exports=mongoose.model('users',userSchema);

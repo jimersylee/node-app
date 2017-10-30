@@ -1,12 +1,14 @@
+/**
+ *
+ * @type {*|createApplication}
+ */
 const express = require('express');
 const router = express.Router();
+const index = require('../app/controllers/index');
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('index', {title: 'Express'});
+    res.render('index', {page: 1});
 });
-router.get('/login', function (req, res, next) {
-  res.render('index', {title: 'login'});
-});
+router.get('/p/:page', index.articleQuery);
 
 module.exports = router;

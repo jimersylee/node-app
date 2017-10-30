@@ -8,12 +8,23 @@
 const express=require("express");
 const router=express.Router();
 const apis = require('./../app/controllers/apis');
+const auth=require('./auth');
 
 //接口
-router.get('/v1/:id', apis.getGroup);
-router.post('/v1/edit/:id', apis.postGroup);
-router.post('/v1/add', apis.addArticles);
-router.post('/v1/dele', apis.deleArticles);
+router.get('/v1/articles/query', apis.articleQuery);
+router.post('/v1/articles/edit/:id', apis.articleEdit);
+router.post('/v1/articles/add', function (req, res) {
+    auth.checkLoginAndReturnJSON(req,res,"article/add");
+    apis.articleAdd(req,res);
+});
+
+router.post('/v1/articles/delete', function (req, res) {
+    const articleId=req.body.id;
+    if(!auth.checkLoginAndReturnJSON(req,res,"articles/"+articleId)){
+        return;
+    }
+    apis.articleDelete(req,res);
+});
 
 module.exports=router;
 

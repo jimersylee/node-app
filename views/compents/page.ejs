@@ -1,0 +1,15 @@
+<nav class="text-center">
+    <ul class="pagination pagination-centered">
+        <% if (!isFirstPage) { %>
+        <li>
+            <a href="?p=<%= page-1 %>">Prev</a>
+        </li>
+        <% } %>
+
+        <% if (!isLastPage) { %>
+        <li>
+            <a href="?p=<%= page+1 %>">Prev</a>
+        </li>
+        <% } %>
+    </ul>
+</nav>

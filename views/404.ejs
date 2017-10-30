@@ -1,6 +1,18 @@
-<% include layout/head %>
-<h1><%= title %></h1>
-<h1>页面飞走啦</h1>
-
-<% include layout/foot %>
+<% include compents/head.ejs %>
+<div class="figure text-center">
+    <img src="https://cfl.dropboxstatic.com/static/images/illustration_catalog/404_error-illo.png"
+         srcset="https://cfl.dropboxstatic.com/static/images/illustration_catalog/404_error-illo@2x.png 2x"
+         alt="Error: 404"/>
+</div>
+<div id="errorbox" class="text-center">
+    <div class="not-found"><h1>Error (404)</h1> We can't find the page you're looking for.
+        <div class="not-found--links"> Here are a few links that may be helpful:
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<% include compents/right.ejs %>
+<% include compents/foot.ejs %>
 

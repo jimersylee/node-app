@@ -1,36 +1,73 @@
-<% include layout/head %> 
-    <header>
-        <h1>欢迎到来！</h1>
-    </header>
-    <div class="container">
-        <ul id="J_list" class="home-items">
-            
-        </ul>
-    </div>
+<% include compents/head.ejs %>
+
+<div id="J_list" class="">
+
+</div>
+
+<nav class="text-center">
+    <ul id="pagination" class="pagination pagination-centered">
+    </ul>
+</nav>
+
 <script>
-$(function(){
-    $.ajax({
-        url: "/api/v1/home"
-    }).done(function(data) {
-        var _list = $('#J_list');
-        var _tpl =[];
-        if(data.code===200&&data.data.length>0){
-            data.data.forEach(function(v,i){
-                var _t = moment(v.publishTime).format('YYYY年MM月DD日');   
-                _tpl.push([
-                    '<li class="">',
-                    '<a href="articles/'+v._id+'">',
-                    '<h3>'+v.title+'</h3>',
-                    '<p style="font-size:12px;color:#999">'+_t+'</p>',
-                    '<p>'+v.info+'</p>',
-                    '</a>',
-                    '<a href="articles/edit/'+v._id+'">编辑</a>',
-                    '</li>'
-                ].join(''))
-            })
-            _list.html(_tpl)
-        }
-    });
-})
+    //每页文章条数
+    const size = 5;
+    //目前第几页
+    const page =<%= page %>
+        $(function () {
+            $.ajax({
+                url: "/api/v1/articles/query",
+                data: {
+                    page: page,
+                    size: size
+                }
+            }).done(function (data) {
+                //渲染文章
+                let _list = $('#J_list');
+                let _tpl = [];
+                if (data.code === 200 && data.data.length > 0) {
+                    data.data.forEach(function (v, i) {
+                        const _t = moment(v.publishTime).format('YYYY年MM月DD日');
+                        _tpl.push([
+                            '<div style="height:300px;overflow: hidden" class="jumbotron well"><h2 class="text-center">' + v.title + '</h2>' +
+                            '<h6 class="text-center">发布时间:' + _t + '</h6>' +
+                            '<p><a class="btn btn-middle" href="/articles/' + v._id + '">查看详情</a></p><p>' + v.summary + '</p></div>'
+                        ].join())
+                        //console.log(v)
+                    })
+                    _list.html(_tpl)
+                }
+
+                //渲染分页
+                //目前在第几页
+                let pageNow = data.page;
+                //总共有多少条
+                const count = data.count;
+                const isFirstPage = data.isFirstPage;
+                const isLastPage = data.isLastPage;
+                let pagination = $('#pagination');
+                let paginationHTML = "";
+                if (!isFirstPage) {
+                    //不在第一页
+                    paginationHTML = paginationHTML + '<li>' +
+                        '            <a href="/p/' + (pageNow - 1) + '">上一页</a>\n' +
+                        '        </li>\n';
+                }
+
+
+                if (!isLastPage) {
+                    //不在最后一页
+                    paginationHTML = paginationHTML + '<li>' +
+                        '            <a href="/p/' + (pageNow + 1) + '">下一页</a>\n' +
+                        '        </li>\n';
+                }
+                console.log(paginationHTML);
+                pagination.html(paginationHTML);
+
+            });
+        })
 </script>
-<% include layout/foot %>
+
+
+<% include compents/right.ejs %>
+<% include compents/foot.ejs %>

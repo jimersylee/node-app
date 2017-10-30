@@ -7,6 +7,7 @@ const admin = require('./admin');
 const home = require('./home');
 const api = require('./api');
 const articles=require('./articles');
+const user=require('./user');
 
 
 const myRoutes = (app) => {
@@ -25,7 +26,9 @@ const myRoutes = (app) => {
     //something
     app.get('/aa', function (req, res) {
         res.send('aa')
-    })
+    });
+
+    app.use('/user',user);
 };
 
 module.exports = myRoutes;
