@@ -47,16 +47,16 @@ function  _increaseViewTimes(id,oldTimes){
 
 exports.editArticle = function (req, res) {
     articles
-        .find({
+        .findOne({
             _id: req.params.id
         }, function (err, data) {
             if (err) {
                 res.render('404', {title: 404});
             } else {
                 res.render('admin/edit', {
-                    _id: data[0]._id,
-                    title: data[0].title,
-                    info: data[0].info
+                    _id: data._id,
+                    title: data.title,
+                    md: data.md
                 });
 
             }

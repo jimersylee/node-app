@@ -32,27 +32,10 @@
     </dl>
     <hr>
     <h4 class="text-left">
-        近期热门
+        阅读排行
     </h4>
-    <ul>
-        <li>
-            论语言之争
-        </li>
-        <li>
-            论语言之争
-        </li>
-        <li>
-            论语言之争
-        </li>
-        <li>
-            论语言之争
-        </li>
-        <li>
-            论语言之争
-        </li>
-        <li>
-            论语言之争
-        </li>
+    <ul id="viewTop">
+
     </ul>
     <hr>
     <h4 class="text-left">
@@ -101,67 +84,6 @@
 
 </div>
 </div>
-<script>
-    $(document).ready(function () {
-        let entries = [
-            {label: 'Back to top', url: '#', target: '_top'},
-            {label: 'Bootstrap', url: '#', target: '_top'},
-            {label: 'Carousel', url: '#', target: '_top'},
-            {label: 'Countdown', url: '#', target: '_top'},
-            {label: 'Dropdown Menu', url: '#', target: '_top'},
-            {label: 'CodePen', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'three.js', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Form Validation', url: '#', target: '_top'},
-            {label: 'JS Compress', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'TinyPNG', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Can I Use', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'URL shortener', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Grid Layout', url: '#', target: '_top'},
-            {label: 'Twitter', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'deviantART', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Gulp', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Browsersync', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'GitHub', url: 'https://github.com/', target: '_top'},
-            {label: 'Shadertoy', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Tree View', url: '#', target: '_top'},
-            {label: 'jsPerf', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Foundation', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'CreateJS', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Velocity.js', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'TweenLite', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'jQuery', url: 'http://sc.chinaz.com/', target: '_top'},
-            {label: 'Notification', url: '#', target: '_top'},
-            {label: 'Parallax', url: '#', target: '_top'}
-        ];
 
-        let settings = {
-            entries: entries,
-            width: 320,
-            height: 240,
-            radius: '65%',
-            radiusMin: 75,
-            bgDraw: true,
-            bgColor: '#fff',
-            opacityOver: 1.00,
-            opacityOut: 0.05,
-            opacitySpeed: 6,
-            fov: 800,
-            speed: 0.5,
-            fontFamily: 'Oswald, Arial, sans-serif',
-            fontSize: '15',
-            fontColor: '#494A5F',
-            fontWeight: 'normal',//bold
-            fontStyle: 'normal',//italic
-            fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
-            fontToUpperCase: true
-
-        };
-
-        //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
-        $('#tag-cloud').svg3DTagCloud(settings);
-
-    });
-
-</script>
 
 <!--right end-->

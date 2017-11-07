@@ -1,0 +1,127 @@
+<script>
+    //每页文章条数
+    const size = 5;
+    //目前第几页
+    const page =<%= page %>
+        $(function () {
+            $.ajax({
+                url: "/api/v1/articles/query",
+                data: {
+                    page: page,
+                    size: size
+                }
+            }).done(function (data) {
+                //渲染文章
+                let _list = $('#J_list');
+                let _tpl = [];
+                if (data.code === 200 && data.data.length > 0) {
+                    data.data.forEach(function (v, i) {
+                        const _t = moment(v.publishTime).format('YYYY年MM月DD日');
+                        _tpl.push([
+                            '<div style="height:300px;overflow: hidden" class="jumbotron well"><h2 class="text-center">' + v.title + '</h2>' +
+                            '<h6 class="text-center">发布时间:' + _t + '</h6>' +
+                            '<p><a class="btn btn-middle" href="/articles/' + v._id + '">查看详情</a></p><p>' + v.summary + '</p></div>'
+                        ].join())
+                        //console.log(v)
+                    })
+                    _list.html(_tpl)
+                }
+
+                //渲染分页
+                //目前在第几页
+                let pageNow = data.page;
+                //总共有多少条
+                const count = data.count;
+                const isFirstPage = data.isFirstPage;
+                const isLastPage = data.isLastPage;
+                let pagination = $('#pagination');
+                let paginationHTML = "";
+                if (!isFirstPage) {
+                    //不在第一页
+                    paginationHTML = paginationHTML + '<li>' +
+                        '            <a href="/p/' + (pageNow - 1) + '">上一页</a>\n' +
+                        '        </li>\n';
+                }
+
+
+                if (!isLastPage) {
+                    //不在最后一页
+                    paginationHTML = paginationHTML + '<li>' +
+                        '            <a href="/p/' + (pageNow + 1) + '">下一页</a>\n' +
+                        '        </li>\n';
+                }
+                console.log(paginationHTML);
+                pagination.html(paginationHTML);
+
+            });
+
+
+
+
+
+        })
+</script>
+<script>
+    $(document).ready(function () {
+        let tags=[];
+        //获取阅读榜单以及标签数据
+        $.ajax({
+            url:"/api/v1/home/info"
+        }).done(function (data) {
+            //console.log(data)
+            //渲染排行榜
+            let viewTop=$("#viewTop");
+            let content=[];
+            if (data.code === 200) {
+                data.data.viewData.forEach(function (v, i) {
+                    content.push([
+                        '<li><a href="/articles/'+v._id+'">'+v.title+'('+v.view_times+')</a></li>'
+
+                    ].join())
+                    //console.log(v)
+                })
+                viewTop.html(content)
+            }
+
+            //渲染标签
+
+            for(let i in data.data.tagsData){
+                console.log(i)
+                tags.push({label: data.data.tagsData[i], url: '/articles/'+data.data.tagsData[i], target: '_top'})
+            }
+
+
+            let entries = tags
+            console.log(entries);
+            let settings = {
+                entries: entries,
+                width: 320,
+                height: 240,
+                radius: '65%',
+                radiusMin: 75,
+                bgDraw: true,
+                bgColor: '#fff',
+                opacityOver: 1.00,
+                opacityOut: 0.05,
+                opacitySpeed: 6,
+                fov: 800,
+                speed: 0.5,
+                fontFamily: 'Oswald, Arial, sans-serif',
+                fontSize: '15',
+                fontColor: '#494A5F',
+                fontWeight: 'normal',//bold
+                fontStyle: 'normal',//italic
+                fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
+                fontToUpperCase: true
+
+            };
+
+            //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
+            $('#tag-cloud').svg3DTagCloud(settings);
+        })
+
+
+
+    });
+
+</script>

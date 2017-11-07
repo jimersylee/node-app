@@ -10,6 +10,7 @@ const express=require("express");
 const router=express.Router();
 const articles = require('./../app/controllers/articles');
 const auth=require('./auth');
+//add
 router.get('/add', function (req, res) {
     auth.checkLoginAndRedirect(req,res,"articles/add");
     articles.addArticle(req,res);
@@ -17,8 +18,11 @@ router.get('/add', function (req, res) {
 //pages
 router.get('/:id', articles.getArticle);
 //edit
-router.get('/edit/:id', articles.editArticle);
-//add
+router.get('/edit/:id', function(req,res){
+    auth.checkLoginAndRedirect(req,res,"articles/edit/"+req.params.id);
+    articles.editArticle(req,res);
+});
+
 
 
 router.get('/',function (req,res) {

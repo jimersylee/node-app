@@ -18,6 +18,9 @@ const _blogSchema = new Schema({
     summary:{
         type:'String'
     },
+    tags:{
+      type:"String"
+    },
     author:{
         type:"String"
     },

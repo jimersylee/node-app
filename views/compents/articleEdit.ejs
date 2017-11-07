@@ -1,45 +1,85 @@
-<div id="articleEdit">
-    <h1>编辑文章</h1>
-    <form class="form-horizontal" style="padding-top:50px;" data-id="<%= _id %>">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">标题：</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="J_title" placeholder="标题" value=<%= title %>>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">内容：</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" rows="3" id="J_info" title=""><%= info %></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" data-loading-text="Loading..." class="btn btn-default">提
-                    交
-                </button>
-            </div>
-        </div>
-    </form>
+<!--left begin-->
+<input type="text" class="" id="title" placeholder="标题" value="">
+<label for="published">是否立即发布:</label><input type="checkbox" id="published" checked>
+<button class="btn btn-danger btn-large" id="save">保存</button>
+<div id="test-editormd">
+    <link rel="stylesheet" href="/editor.md/css/editormd.css"/>
+    <!--<script src="/editor.md/examples/js/jquery.min.js"></script>-->
+    <script src="/editor.md/editormd.js"></script>
+    <script type="text/javascript">
+        let testEditor;
+        const articleId='<%=_id%>';
+        $(function () {
+            $.get('/api/v1/articles/get/'+articleId, function (data) {
+                //赋值标题
+                $("#title").val(data.data.title);
+
+                testEditor = editormd("test-editormd", {
+                    width: "100%",
+                    height: 800,
+                    path: '/editor.md/lib/',
+                    theme: "light",
+                    previewTheme: "light",
+                    editorTheme: "pastel-on-light",
+                    markdown: data.data.md,
+                    codeFold: true,
+                    //syncScrolling : false,
+                    saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                    searchReplace: true,
+                    //watch : false,                // 关闭实时预览
+                    htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                    //toolbar: false,             //关闭工具栏
+                    //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                    emoji: true,
+                    taskList: true,
+                    tocm: true,         // Using [TOCM]
+                    tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                    flowChart: true,             // 开启流程图支持，默认关闭
+                    sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+                    //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                    //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                    //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                    //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                    //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                    imageUpload: true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: "./php/upload.php",
+                    onload: function () {
+                        console.log('onload', this);
+                        //this.fullscreen();
+                        //this.unwatch();
+                        //this.watch().fullscreen();
+
+                        //this.setMarkdown("#PHP");
+                        //this.width("100%");
+                        //this.height(480);
+                        //this.resize("100%", 640);
+                    }
+                });
+            });
+        });
+    </script>
+
 </div>
 <script>
     $(function () {
-        var _from = $('.form-horizontal');
-        var _id = _from.data('id');
-        var _btn = _from.find('button');
+        const _btn = $('#save');
         _btn.on('click', function (e) {
-            var $btn = $(this).button('loading')
+            const $btn = $(this).button('loading');
             e.preventDefault();
             $.ajax({
-                url: "/api/v1/articles/edit/" + _id,
+                url: "/api/v1/articles/edit",
                 type: "POST",
                 data: {
-                    title: $('#J_title').val(),
-                    info: $('#J_info').val()
+                    _id:articleId,
+                    title: $('#title').val(),
+                    html: testEditor.getHTML(),
+                    md: testEditor.getMarkdown(),
+                    published:$('#published').val(),
                 }
             }).done(function (data) {
-                $btn.button('reset');
-                window.location.href = 'http://localhost:8088/articles/' + _id
+                console.log(data)
+                window.location.href = '/articles/' + data.data
 
             }).fail(function (jqXHR, textStatus) {
                 $btn.button('reset')
@@ -49,3 +89,5 @@
         })
     })
 </script>
+
+<!--left end-->
